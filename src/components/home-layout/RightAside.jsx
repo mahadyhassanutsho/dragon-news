@@ -1,3 +1,9 @@
+import SocialLogin from "./SocialLogin";
+
 export default function RightAside() {
-  return <div>RightAside</div>;
+  return (
+    <div>
+      <SocialLogin />
+    </div>
+  );
 }
