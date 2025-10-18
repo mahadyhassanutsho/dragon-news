@@ -6,7 +6,7 @@ export default function QZone() {
   return (
     <div className="bg-base-200 p-4 rounded">
       <h2 className="font-bold">QZone</h2>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col items-center gap-2">
         <img src={swimmingImage} alt="" />
         <img src={classImage} alt="" />
         <img src={playgroundImage} alt="" />
