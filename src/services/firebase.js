@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -17,7 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
+const auth = getAuth(app);
 
 export const createUser = async (displayName, photoURL, email, password) => {
   const userCredential = await createUserWithEmailAndPassword(
@@ -34,6 +35,8 @@ export const createUser = async (displayName, photoURL, email, password) => {
 
   return user;
 };
+
+export const logoutUser = () => signOut(auth);
 
 export const subscribeToAuth = (observerFunction) => {
   const unsubscribe = onAuthStateChanged(auth, observerFunction);

@@ -6,7 +6,7 @@ import { createUser } from "../services/firebase";
 import { useAuth } from "../providers/AuthProvider";
 
 export default function RegisterPage() {
-  const { setUser } = useAuth();
+  const { login } = useAuth();
   const [registerInProgress, setRegisterInProgress] = useState(false);
 
   const handleRegister = async (e) => {
@@ -23,7 +23,7 @@ export default function RegisterPage() {
     try {
       const imageUrl = await uploadImage(image);
       const user = await createUser(name, imageUrl, email, password);
-      setUser(user);
+      login(user);
       toast.success(`Successfully registered ${user.displayName}.`);
       e.target.reset();
     } catch (e) {

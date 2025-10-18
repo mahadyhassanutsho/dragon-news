@@ -1,11 +1,12 @@
 import { use, useState, useEffect, createContext } from "react";
-import { subscribeToAuth } from "../services/firebase";
+import { logoutUser, subscribeToAuth } from "../services/firebase";
 
 const AuthContext = createContext({
   user: null,
   isPending: true,
   // eslint-disable-next-line no-unused-vars
-  setUser: (user) => {},
+  login: (user) => {},
+  logout: () => {},
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -19,6 +20,10 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isPending, setIsPending] = useState(true);
 
+  const login = (user) => setUser(user);
+
+  const logout = () => logoutUser();
+
   useEffect(() => {
     const unsubscribe = subscribeToAuth((user) => setUser(user));
     setIsPending(false);
@@ -28,7 +33,7 @@ export default function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isPending, setUser }}>
+    <AuthContext.Provider value={{ user, isPending, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
