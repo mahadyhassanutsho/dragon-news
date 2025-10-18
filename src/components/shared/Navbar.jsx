@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import user from "../../assets/user.png";
 
 const links = [
@@ -20,7 +20,9 @@ export default function Navbar() {
       </ul>
       <div className="login-btn flex items-center gap-4">
         <img src={user} />
-        <button className="btn btn-primary px-8">Login</button>
+        <Link to="/auth/login" className="btn btn-primary px-8">
+          Login
+        </Link>
       </div>
     </nav>
   );

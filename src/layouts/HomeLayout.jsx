@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import Header from "../components/home-layout/Header";
 import LatestNews from "../components/home-layout/LatestNews";
-import Navbar from "../components/home-layout/Navbar";
+import Navbar from "../components/shared/Navbar";
 import LeftAside from "../components/home-layout/LeftAside";
 import RightAside from "../components/home-layout/RightAside";
 
