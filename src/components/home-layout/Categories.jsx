@@ -1,7 +1,8 @@
+import axios from "axios";
 import { use } from "react";
 import { NavLink } from "react-router";
 
-const categoryPromise = fetch("/categories.json").then((res) => res.json());
+const categoryPromise = axios.get("/categories.json").then((res) => res.data);
 
 export default function Categories() {
   const categories = use(categoryPromise);

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createBrowserRouter } from "react-router";
 import HomeLayout from "../layouts/HomeLayout";
 import PageNotFound from "../pages/PageNotFound";
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
       { path: "", element: <HomePage /> },
       {
         path: "category/:id",
-        loader: () => fetch("/news.json").then((res) => res.json()),
+        loader: () => axios.get("/news.json").then((res) => res.data),
         element: <NewsByCategoryPage />,
       },
     ],
