@@ -5,6 +5,7 @@ import {
   updateProfile,
   onAuthStateChanged,
   signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -36,7 +37,16 @@ export const createUser = async (displayName, photoURL, email, password) => {
   return user;
 };
 
-export const logoutUser = () => signOut(auth);
+export const loginUser = async (email, password) => {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  return userCredential.user;
+};
+
+export const logoutUser = async () => await signOut(auth);
 
 export const subscribeToAuth = (observerFunction) => {
   const unsubscribe = onAuthStateChanged(auth, observerFunction);

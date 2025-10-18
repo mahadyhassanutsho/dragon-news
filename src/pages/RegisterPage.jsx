@@ -28,7 +28,7 @@ export default function RegisterPage() {
       e.target.reset();
     } catch (e) {
       toast.error(
-        `Error: ${e.message || "Register failed! Please try again."}`
+        `Error: ${e.code || "Registration failed! Please try again."}`
       );
     } finally {
       setRegisterInProgress(false);

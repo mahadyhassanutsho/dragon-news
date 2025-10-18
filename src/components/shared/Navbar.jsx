@@ -14,8 +14,12 @@ export default function Navbar() {
   const { user, isPending, logout } = useAuth();
 
   const handleLogout = () => {
-    logout();
-    toast.info(`Logged out successfully.`);
+    try {
+      logout();
+      toast.info(`Logged out successfully.`);
+    } catch (e) {
+      toast.error(`Error: ${e.code || "Logout failed! Please try again."}`);
+    }
   };
 
   return (
