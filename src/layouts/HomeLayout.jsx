@@ -1,7 +1,9 @@
 import { Outlet } from "react-router";
-import Header from "../components/Header";
-import LatestNews from "../components/LatestNews";
-import Navbar from "../components/Navbar";
+import Header from "../components/home-layout/Header";
+import LatestNews from "../components/home-layout/LatestNews";
+import Navbar from "../components/home-layout/Navbar";
+import LeftAside from "../components/home-layout/LeftAside";
+import RightAside from "../components/home-layout/RightAside";
 
 export default function HomeLayout() {
   return (
@@ -9,12 +11,16 @@ export default function HomeLayout() {
       <Header />
       <LatestNews />
       <Navbar />
-      <main>
-        <section className="left-nav"></section>
-        <section className="main">
+      <main className="w-11/12 mx-auto my-4 grid grid-cols-12 gap-4">
+        <aside className="col-span-3">
+          <LeftAside />
+        </aside>
+        <section className="col-span-6">
           <Outlet />
         </section>
-        <section className="right-nav"></section>
+        <aside className="col-span-3">
+          <RightAside />
+        </aside>
       </main>
     </>
   );

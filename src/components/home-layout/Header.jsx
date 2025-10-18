@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 export default function Header() {
   return (

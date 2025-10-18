@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import user from "../assets/user.png";
+import user from "../../assets/user.png";
 
 const links = [
   { path: "/", name: "Home" },
@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav className="w-11/12 mx-auto my-4 flex items-center justify-between">
       <div></div>
-      <ul className="nav flex items-center gap-4 text-accent">
+      <ul className="flex items-center gap-4 text-accent">
         {links.map((link, i) => (
           <li key={i}>
             <NavLink to={link.path}>{link.name}</NavLink>
