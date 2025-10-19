@@ -23,7 +23,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-11/12 mx-auto my-4 flex items-center justify-between">
+    <nav className="w-11/12 mx-auto py-4 flex items-center justify-between">
       <div></div>
       <ul className="flex items-center gap-4 text-accent">
         {links.map((link, i) => (
