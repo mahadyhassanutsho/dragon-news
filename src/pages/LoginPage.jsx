@@ -1,11 +1,13 @@
 import { useActionState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useAuth } from "../providers/AuthProvider";
 import { loginUser } from "../services/firebase";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const loginAction = async (_, formData) => {
     try {
@@ -16,6 +18,7 @@ export default function LoginPage() {
       const user = await loginUser(email, password);
       login(user);
       toast.success(`Logged in as ${user.displayName}.`);
+      navigate(`${location.state ? location.state : "/"}`);
       return {
         success: true,
       };

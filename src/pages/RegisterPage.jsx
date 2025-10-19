@@ -1,5 +1,5 @@
 import { useActionState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { uploadImage } from "../services/imgbb";
 import { createUser } from "../services/firebase";
@@ -7,6 +7,7 @@ import { useAuth } from "../providers/AuthProvider";
 
 export default function RegisterPage() {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const registerAction = async (_, formData) => {
     const { name, image, email, password } = {
@@ -21,6 +22,7 @@ export default function RegisterPage() {
       const user = await createUser(name, imageUrl, email, password);
       login(user);
       toast.success(`Successfully registered ${user.displayName}.`);
+      navigate("/");
       return { success: true };
     } catch (e) {
       toast.error(
