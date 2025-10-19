@@ -39,7 +39,7 @@ export default function Navbar() {
           {user ? (
             <>
               <div className="avatar">
-                <div className="w-16 rounded-full bg-accent">
+                <div className="w-14 rounded-full bg-accent">
                   <img src={user.photoURL} />
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function Navbar() {
           ) : (
             <>
               <div className="avatar">
-                <div className="w-16 rounded-full bg-accent">
+                <div className="w-14 rounded-full bg-accent">
                   <img src={userImage} />
                 </div>
               </div>

@@ -7,6 +7,7 @@ import NewsByCategoryPage from "../pages/NewsByCategoryPage";
 import AuthLayout from "../layouts/AuthLayout";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import NewsDetailsPage from "../pages/NewsDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -30,12 +31,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/news/",
-    element: (
-      <div className="w-full min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-3xl font-semibold text-center">News Layout</h1>
-      </div>
-    ),
+    path: "/news/:id",
+    loader: () => axios.get("/news.json").then((res) => res.data),
+    element: <NewsDetailsPage />,
   },
   {
     path: "/*",
