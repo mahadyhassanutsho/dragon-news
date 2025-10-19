@@ -1,13 +1,14 @@
 import axios from "axios";
 import { createBrowserRouter } from "react-router";
 import HomeLayout from "../layouts/HomeLayout";
-import PageNotFound from "../pages/PageNotFound";
+import NotFoundPage from "../pages/NotFoundPage";
 import HomePage from "../pages/HomePage";
 import NewsByCategoryPage from "../pages/NewsByCategoryPage";
 import AuthLayout from "../layouts/AuthLayout";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NewsDetailsPage from "../pages/NewsDetailsPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +34,15 @@ const router = createBrowserRouter([
   {
     path: "/news/:id",
     loader: () => axios.get("/news.json").then((res) => res.data),
-    element: <NewsDetailsPage />,
+    element: (
+      <ProtectedRoute>
+        <NewsDetailsPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/*",
-    element: <PageNotFound />,
+    element: <NotFoundPage />,
   },
 ]);
 

@@ -25,8 +25,10 @@ export default function AuthProvider({ children }) {
   const logout = () => logoutUser();
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuth((user) => setUser(user));
-    setIsPending(false);
+    const unsubscribe = subscribeToAuth((user) => {
+      setUser(user);
+      setIsPending(false);
+    });
     return () => {
       unsubscribe();
     };
