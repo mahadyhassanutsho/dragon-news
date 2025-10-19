@@ -9,6 +9,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NewsDetailsPage from "../pages/NewsDetailsPage";
 import ProtectedRoute from "./ProtectedRoute";
+import LoadingPage from "../pages/LoadingPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         path: "category/:id",
         loader: () => axios.get("/news.json").then((res) => res.data),
         element: <NewsByCategoryPage />,
+        hydrateFallbackElement: <LoadingPage />,
       },
     ],
   },
@@ -39,6 +41,7 @@ const router = createBrowserRouter([
         <NewsDetailsPage />
       </ProtectedRoute>
     ),
+    hydrateFallbackElement: <LoadingPage />,
   },
   {
     path: "/*",

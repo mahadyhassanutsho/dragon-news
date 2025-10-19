@@ -1,11 +1,16 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Header from "../components/home/Header";
 import LeftAside from "../components/home/LeftAside";
 import RightAside from "../components/home/RightAside";
 import LatestNews from "../components/news/LatestNews";
 import Navbar from "../components/shared/Navbar";
+import LoadingPage from "../pages/LoadingPage";
 
 export default function HomeLayout() {
+  const { state } = useNavigation();
+
+  if (state === "loading") return <LoadingPage />;
+
   return (
     <>
       <Header />
