@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useActionState } from "react";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import { uploadImage } from "../services/imgbb";
@@ -7,17 +7,13 @@ import { useAuth } from "../providers/AuthProvider";
 
 export default function RegisterPage() {
   const { login } = useAuth();
-  const [registerInProgress, setRegisterInProgress] = useState(false);
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setRegisterInProgress(true);
-
+  const registerAction = async (_, formData) => {
     const { name, image, email, password } = {
-      name: e.target.name.value,
-      image: e.target.image.files[0],
-      email: e.target.email.value,
-      password: e.target.password.value,
+      name: formData.get("name"),
+      image: formData.get("image"),
+      email: formData.get("email"),
+      password: formData.get("password"),
     };
 
     try {
@@ -25,20 +21,23 @@ export default function RegisterPage() {
       const user = await createUser(name, imageUrl, email, password);
       login(user);
       toast.success(`Successfully registered ${user.displayName}.`);
-      e.target.reset();
+      return { success: true };
     } catch (e) {
       toast.error(
         `Error: ${e.code || "Registration failed! Please try again."}`
       );
-    } finally {
-      setRegisterInProgress(false);
+      return { success: false };
     }
   };
+
+  const [_, formAction, inProgress] = useActionState(registerAction, {
+    success: false,
+  });
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form className="card-body" onSubmit={handleRegister}>
+        <form className="card-body" action={formAction}>
           <h2 className="font-semibold text-2xl text-center">
             Register your account
           </h2>
@@ -94,9 +93,9 @@ export default function RegisterPage() {
             <button
               type="submit"
               className="btn btn-neutral mt-4"
-              disabled={registerInProgress}
+              disabled={inProgress}
             >
-              {registerInProgress ? "Registering..." : "Register"}
+              {inProgress ? "Registering..." : "Register"}
             </button>
           </fieldset>
         </form>

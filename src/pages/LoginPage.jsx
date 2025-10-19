@@ -1,4 +1,4 @@
-import { useRef, useActionState } from "react";
+import { useActionState } from "react";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import { useAuth } from "../providers/AuthProvider";
@@ -6,7 +6,6 @@ import { loginUser } from "../services/firebase";
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const formRef = useRef(null);
 
   const loginAction = async (_, formData) => {
     try {
@@ -28,14 +27,14 @@ export default function LoginPage() {
     }
   };
 
-  const [_, formAction, isPending] = useActionState(loginAction, {
+  const [_, formAction, inProgress] = useActionState(loginAction, {
     success: false,
   });
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form ref={formRef} action={formAction} className="card-body">
+        <form action={formAction} className="card-body">
           <h2 className="font-semibold text-2xl text-center">
             Login your account
           </h2>
@@ -72,9 +71,9 @@ export default function LoginPage() {
             <button
               type="submit"
               className="btn btn-neutral mt-4"
-              disabled={isPending}
+              disabled={inProgress}
             >
-              {isPending ? "Logging in..." : "Login"}
+              {inProgress ? "Logging in..." : "Login"}
             </button>
           </fieldset>
         </form>
