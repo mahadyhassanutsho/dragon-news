@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useActionState } from "react";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import { useAuth } from "../providers/AuthProvider";
@@ -6,32 +6,36 @@ import { loginUser } from "../services/firebase";
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const [loginInProgress, setLoginInProgress] = useState(false);
+  const formRef = useRef(null);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoginInProgress(true);
-
+  const loginAction = async (_, formData) => {
     try {
       const { email, password } = {
-        email: e.target.email.value,
-        password: e.target.password.value,
+        email: formData.get("email"),
+        password: formData.get("password"),
       };
       const user = await loginUser(email, password);
       login(user);
       toast.success(`Logged in as ${user.displayName}.`);
-      e.target.reset();
+      return {
+        success: true,
+      };
     } catch (e) {
       toast.error(`Error: ${e.code || "Login failed! Please try again."}`);
-    } finally {
-      setLoginInProgress(false);
+      return {
+        success: false,
+      };
     }
   };
+
+  const [_, formAction, isPending] = useActionState(loginAction, {
+    success: false,
+  });
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form className="card-body" onSubmit={handleLogin}>
+        <form ref={formRef} action={formAction} className="card-body">
           <h2 className="font-semibold text-2xl text-center">
             Login your account
           </h2>
@@ -68,9 +72,9 @@ export default function LoginPage() {
             <button
               type="submit"
               className="btn btn-neutral mt-4"
-              disabled={loginInProgress}
+              disabled={isPending}
             >
-              {loginInProgress ? "Logging in..." : "Login"}
+              {isPending ? "Logging in..." : "Login"}
             </button>
           </fieldset>
         </form>
