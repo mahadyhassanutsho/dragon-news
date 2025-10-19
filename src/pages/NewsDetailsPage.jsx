@@ -1,8 +1,8 @@
 import { useParams, useLoaderData } from "react-router";
-import Header from "../components/home-layout/Header";
+import Header from "../components/home/Header";
+import RightAside from "../components/home/RightAside";
 import Navbar from "../components/shared/Navbar";
-import RightAside from "../components/home-layout/RightAside";
-import NewsDetailsCard from "../components/home-layout/NewsDetailsCard";
+import NewsDetailsCard from "../components/news/NewsDetailsCard";
 
 export default function NewsDetailsPage() {
   const { id } = useParams();

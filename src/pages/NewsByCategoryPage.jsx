@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useParams } from "react-router";
-import NewsCard from "../components/home-layout/NewsCard";
+import NewsCard from "../components/news/NewsCard";
 
 export default function NewsByCategoryPage() {
   const { id } = useParams();

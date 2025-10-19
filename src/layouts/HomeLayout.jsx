@@ -1,9 +1,9 @@
 import { Outlet } from "react-router";
-import Header from "../components/home-layout/Header";
-import LatestNews from "../components/home-layout/LatestNews";
+import Header from "../components/home/Header";
+import LeftAside from "../components/home/LeftAside";
+import RightAside from "../components/home/RightAside";
+import LatestNews from "../components/news/LatestNews";
 import Navbar from "../components/shared/Navbar";
-import LeftAside from "../components/home-layout/LeftAside";
-import RightAside from "../components/home-layout/RightAside";
 
 export default function HomeLayout() {
   return (

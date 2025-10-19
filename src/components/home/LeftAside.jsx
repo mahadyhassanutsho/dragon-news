@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Categories from "./Categories";
+import Categories from "../news/Categories";
 import Loading from "../shared/Loading";
 
 export default function LeftAside() {
