@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router";
-import userImage from "../../assets/user.png";
 import { useAuth } from "../../providers/AuthProvider";
 import Loading from "../shared/Loading";
 import { toast } from "react-toastify";
@@ -64,20 +63,19 @@ export default function Navbar() {
                       {user.email || user.providerData[0]?.email}
                     </p>
                   </li>
+                  <li>
+                    <button
+                      className="btn btn-primary px-8"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
                 </ul>
               </div>
-              <button className="btn btn-primary px-8" onClick={handleLogout}>
-                Logout
-              </button>
             </>
           ) : (
             <>
-              <div className="avatar">
-                <div className="w-14 rounded-full bg-accent">
-                  <img src={userImage} />
-                </div>
-              </div>
-
               <Link to="/auth/login" className="btn btn-primary px-8">
                 Login
               </Link>
