@@ -7,7 +7,7 @@ export default function Header() {
       <img src={logo} alt="The Dragon News" className="max-w-[400px]" />
       <h2 className="text-accent">Journalism Without Fear or Favour</h2>
       <p className="text-semibold text-accent">
-        {format(new Date(), "EEEE, MMMM MM, yyyy")}
+        {format(new Date(), "EEEE, MMMM dd, yyyy")}
       </p>
     </header>
   );
