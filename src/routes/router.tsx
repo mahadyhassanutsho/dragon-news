@@ -7,6 +7,7 @@ import NewsByCategoryPage from "../pages/NewsByCategoryPage";
 import AuthLayout from "../layouts/AuthLayout";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import NewsDetailsPage from "../pages/NewsDetailsPage";
 import ProtectedRoute from "./ProtectedRoute";
 import LoadingPage from "../pages/LoadingPage";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
     children: [
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      { path: "forgot-password", element: <ForgotPasswordPage /> },
     ],
   },
   {

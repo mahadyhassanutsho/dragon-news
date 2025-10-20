@@ -7,6 +7,7 @@ import {
   signOut,
   signInWithEmailAndPassword,
   signInWithPopup,
+  sendPasswordResetEmail,
   GoogleAuthProvider,
   GithubAuthProvider,
 } from "firebase/auth";
@@ -63,6 +64,10 @@ export const loginWithGithub = async () => {
     email: user.providerData[0].email,
   });
   return user;
+};
+
+export const sendResetPasswordEmail = async (email) => {
+  await sendPasswordResetEmail(auth, email);
 };
 
 export const logoutUser = async () => await signOut(auth);

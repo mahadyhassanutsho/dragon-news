@@ -120,7 +120,9 @@ export default function LoginPage() {
               )}
             </div>
             <div>
-              <Link className="link link-hover">Forgot password?</Link>
+              <Link to="/auth/forgot-password" className="link link-hover">
+                Forgot password?
+              </Link>
             </div>
             <p className="font-semibold text-center my-2">
               Don't have an account?{" "}
