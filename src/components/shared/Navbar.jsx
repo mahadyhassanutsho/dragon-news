@@ -35,13 +35,35 @@ export default function Navbar() {
       {isPending ? (
         <Loading />
       ) : (
-        <div className="login-btn flex items-center gap-4">
+        <div className="flex items-center gap-4">
           {user ? (
             <>
-              <div className="avatar">
-                <div className="w-14 rounded-full bg-accent">
-                  <img src={user.photoURL} />
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="avatar rounded-full cursor-pointer border-2 border-transparent hover:border-secondary transition duration-300"
+                >
+                  <div className="w-14 rounded-full bg-accent">
+                    <img src={user.photoURL} />
+                  </div>
                 </div>
+                <ul
+                  tabIndex="-1"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-fit p-2 shadow-sm"
+                >
+                  <li>
+                    <p>
+                      <span className="font-semibold">Username:</span>{" "}
+                      {user.displayName}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <span className="font-semibold">Email:</span> {user.email}
+                    </p>
+                  </li>
+                </ul>
               </div>
               <button className="btn btn-primary px-8" onClick={handleLogout}>
                 Logout
