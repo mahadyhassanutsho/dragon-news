@@ -1,8 +1,14 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 import { useAuth } from "../providers/AuthProvider";
-import { loginUser } from "../services/firebase";
+import {
+  loginUser,
+  loginWithGithub,
+  loginWithGoogle,
+} from "../services/firebase";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -22,6 +28,40 @@ export default function LoginPage() {
       const user = await loginUser(email, password);
       login(user);
       reset();
+      toast.success(`Logged in as ${user.displayName}.`);
+      navigate(`${location.state ? location.state : "/"}`);
+      return {
+        success: true,
+      };
+    } catch (e) {
+      toast.error(`Error: ${e.code || "Login failed! Please try again."}`);
+      return {
+        success: false,
+      };
+    }
+  };
+
+  const onLoginWithGoogle = async () => {
+    try {
+      const user = await loginWithGoogle();
+      login(user);
+      toast.success(`Logged in as ${user.displayName}.`);
+      navigate(`${location.state ? location.state : "/"}`);
+      return {
+        success: true,
+      };
+    } catch (e) {
+      toast.error(`Error: ${e.code || "Login failed! Please try again."}`);
+      return {
+        success: false,
+      };
+    }
+  };
+
+  const onLoginWithGithub = async () => {
+    try {
+      const user = await loginWithGithub();
+      login(user);
       toast.success(`Logged in as ${user.displayName}.`);
       navigate(`${location.state ? location.state : "/"}`);
       return {
@@ -91,13 +131,34 @@ export default function LoginPage() {
                 Register
               </Link>
             </p>
-            <button
-              type="submit"
-              className="btn btn-neutral"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Logging in..." : "Login"}
-            </button>
+            <div>
+              <button
+                type="submit"
+                className="btn btn-neutral w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Logging in..." : "Login"}
+              </button>
+              <div className="divider">OR</div>
+              <div className="join join-vertical w-full">
+                <button
+                  type="button"
+                  onClick={onLoginWithGoogle}
+                  className="btn join-item gap-2"
+                >
+                  <FcGoogle size={24} />
+                  Login with Google
+                </button>
+                <button
+                  type="button"
+                  onClick={onLoginWithGithub}
+                  className="btn join-item gap-2"
+                >
+                  <FaGithub size={24} />
+                  Login with GitHub
+                </button>
+              </div>
+            </div>
           </fieldset>
         </form>
       </div>

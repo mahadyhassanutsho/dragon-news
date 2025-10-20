@@ -6,6 +6,9 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -18,8 +21,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 export const createUser = async (displayName, photoURL, email, password) => {
   const userCredential = await createUserWithEmailAndPassword(
@@ -44,6 +48,21 @@ export const loginUser = async (email, password) => {
     password
   );
   return userCredential.user;
+};
+
+export const loginWithGoogle = async () => {
+  const userCredential = await signInWithPopup(auth, googleProvider);
+  const user = userCredential.user;
+  return user;
+};
+
+export const loginWithGithub = async () => {
+  const userCredential = await signInWithPopup(auth, githubProvider);
+  const user = userCredential.user;
+  await updateProfile(user, {
+    email: user.providerData[0].email,
+  });
+  return user;
 };
 
 export const logoutUser = async () => await signOut(auth);

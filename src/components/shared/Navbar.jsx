@@ -60,7 +60,8 @@ export default function Navbar() {
                   </li>
                   <li>
                     <p>
-                      <span className="font-semibold">Email:</span> {user.email}
+                      <span className="font-semibold">Email:</span>{" "}
+                      {user.email || user.providerData[0]?.email}
                     </p>
                   </li>
                 </ul>
